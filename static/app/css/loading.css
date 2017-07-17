@@ -1,0 +1,12 @@
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 354px;
+}
+
+.loading-img {
+    background: url("../img/meeting-ctrl-menu-bar/loading.gif") center no-repeat;
+    width: 66px;
+    height: 66px;
+}

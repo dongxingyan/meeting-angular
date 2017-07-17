@@ -1,0 +1,130 @@
+<div class="avatar" ng-click="drpengExtend.hide = true">
+    <img class="brand-primary" ng-src="{{applicationSettings.overrideConferenceAvatar || connection.data.avatarUrl}}" onerror="this.style.display='none'" />
+    <div class="badge-container">
+        <div class="badge red" title="{{'IDS_CONFERENCE_MUTED_GUESTS_TOOLTIP' | translate}}" ng-if="call.guestsMuted">
+            <i class="mdi-moff"></i>
+        </div>
+        <div class="badge red" title="{{'IDS_CONFERENCE_LOCKED_TOOLTIP' | translate}}" ng-if="call.locked">
+            <i class="mdi-lock"></i>
+        </div>
+    </div>
+</div>
+<div class="name-container">
+    <div ng-click="drpengExtend.hide = true" class="sel-call-alias name" title="{{params.remote_alias || connection.data.alias}}">{{params.remote_alias || connection.data.alias}}</div>
+    <div class="display-name" title="{{drpengExtend.displayName}}">{{drpengExtend.displayName}}</div>
+</div>
+<div class="menu" ng-click="drpengExtend.hide = true">
+    <!--ng-show="connection.data.isChair && (!connection.data.isGateway || applicationSettings.controlGatewayCalls)"-->
+    <a href="" class="meeting-ctrl-title-a" ng-click="drpengExtend.appbarDisplay = true;drpengExtend.isPromised()" ng-show="drpengExtend.isChair && !drpengExtend.appbarDisplay">
+        <!--<i class="mdi-menu"></i>-->
+        <div class="meeting-ctrl-button-container">
+            <div translate>IDS_CONFERENCE_CONTROL</div>
+            <div class="meeting-ctrl-menu-develop-img"></div>
+        </div>
+    </a>
+</div>
+<div class="clearfix"></div>
+<!-- ng-click="$parent.open = false"-->
+<div class="app-bar-submenu-container app-bar-container-custom" ng-show="drpengExtend.appbarDisplay">
+    <div class="submenu-content brand-tertiary meeting-ctrl-list-container">
+        <!--邀请入会-->
+        <a href="" class="sel-participant-add brand-tertiary-hover" ng-click="toggle('dialog-dial-out');drpengExtend.hide = true">
+            <span class="invitation-to-join-img"></span>
+            <span translate>IDS_PARTICIPANT_ADD_NEW</span>
+        </a>
+        <!--锁定会议-->
+        <a href="" class="sel-conference-lock brand-tertiary-hover" ng-if="!call.locked" ng-click="call.toggleLock();drpengExtend.hide = true">
+            <span class="lock-meeting-img"></span>
+            <span translate>IDS_CONFERENCE_LOCK</span>
+        </a>
+        <!--解锁会议-->
+        <a href="" class="sel-conference-unlock brand-tertiary-hover" ng-if="call.locked" ng-click="call.toggleLock();drpengExtend.hide = true">
+            <span class="unlock-meeting-img"></span>
+            <span translate>IDS_CONFERENCE_UNLOCK</span>
+        </a>
+        <!--开始静音-->
+        <a href="" class="sel-conference-mute-guests brand-tertiary-hover" ng-if="!call.guestsMuted" ng-click="toggle('dialog-guest-mute');drpengExtend.hide = true">
+            <span class="start-mute-img"></span>
+            <span translate>IDS_CONFERENCE_MUTE_GUESTS_NEW</span>
+        </a>
+        <!--解除静音-->
+        <a href="" class="sel-conference-unmute-guests brand-tertiary-hover" ng-if="call.guestsMuted" ng-click="call.toggleMuteAllGuests();drpengExtend.hide = true">
+            <span class="stop-mute-img"></span>
+            <span translate>IDS_CONFERENCE_UNMUTE_GUESTS_NEW</span>
+        </a>
+        <!--全部挂断-->
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" ng-click="drpengExtend.disconnectAll();drpengExtend.hide = true">
+            <span class="all-hang-up-img"></span>
+            <span translate>IDS_CONFERENCE_DISCONNECT_ALL_NEW</span>
+        </a>
+        <!--显示昵称-->
+        <a href="" class="sel-conference-mute-guests brand-tertiary-hover" ng-click="drpengExtend.updateLayoutSettings($event, 'aliasShow', 'auto');drpengExtend.hide = true" ng-show="drpengExtend.settings.aliasShow === 'off'">
+            <span class="display-nickname-img"></span>
+            <span translate>IDS_CONFERENCE_SHOW_NICKNAME</span>
+        </a>
+        <!--隐藏昵称-->
+        <a href="" class="sel-conference-mute-guests brand-tertiary-hover" ng-click="drpengExtend.updateLayoutSettings($event, 'aliasShow', 'off');drpengExtend.hide = true" ng-show="drpengExtend.settings.aliasShow === 'auto'">
+            <span class="undisplay-nickname-img"></span>
+            <span translate>IDS_CONFERENCE_HIDE_NICKNAME</span>
+        </a>
+        <!--分屏模式-->
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" ng-click="drpengExtend.hide = !drpengExtend.hide" id="split-screen-mode">
+            <span class="split-screen-mode-img"></span>
+            <span translate>IDS_CONFERENCE_SPLIT_SCREEN_MODE</span>
+        </a>
+        <!--主屏模式-->
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" ng-click="toggle('dialog-speaking-mode');drpengExtend.hide = true">
+            <span class="main-screen-mode-img"></span>
+            <span translate>IDS_CONFERENCE_MAIN_SCREEN_MODE</span>
+        </a>
+        <!--开始录制-->
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" id="J-start-record" ng-click="drpengExtend.startRecord($event);drpengExtend.hide = true;" ng-if="!drpengExtend.isRecording">
+            <span class="start-recording-img"></span>
+            <span translate>IDS_CONFERENCE_START_RECORDING</span>
+        </a>
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover"ng-click="toggle('loading');drpengExtend.stopRecord();drpengExtend.hide = true" ng-if="drpengExtend.isRecording">
+            <span class="stop-recording-img"></span>
+            <span translate>{{drpengExtend.recordTimeStr || '00:00:00'}}</span>
+        </a>
+        <!--开始直播-->
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" id="J-start-live" ng-click="drpengExtend.outterStartLive();drpengExtend.hide = true" ng-show="!drpengExtend.isLiving">
+            <span class="start-live-img"></span>
+            <span translate>IDS_CONFERENCE_START_LIVE</span>
+        </a>
+        <a href="" class="sel-conference-disconnect-all brand-tertiary-hover" ng-click="toggle('loading');drpengExtend.stopLive();drpengExtend.hide = true" ng-if="drpengExtend.isLiving">
+            <span class="stop-recording-img"></span>
+            <span translate>{{drpengExtend.liveTimeStr || '00:00:00'}}</span>
+        </a>
+        <span class="take-back-menu-bar" ng-click="drpengExtend.appbarDisplay = false">
+            <span class="meeting-ctrl-menu-take-back-img"></span>
+        </span>
+
+        <div style="border-bottom-width: 1px; border-bottom-style: solid" class="brand-secondary" ng-if="plugins.length"></div>
+        <a href="" class="brand-tertiary-hover" ng-repeat="plugin in plugins" ng-click="plugin.open = true;">
+            <i class="mdi-extension"></i> {{plugin.name}}
+        </a>
+    </div>
+    <!--分屏模式选项-->
+    <div class="split-screen-list-container" ng-class="{hide: drpengExtend.hide}">
+        <div class="split-screen-item-container" ng-click="drpengExtend.updateLayoutSettings($event,'layoutView', '1:0')">
+            <span class="main-screen-img"></span>
+            <span translate>IDS_CONFERENCE_A_MAIN_SCREEN</span>
+        </div>
+        <div class="split-screen-item-container" ng-click="drpengExtend.updateLayoutSettings($event, 'layoutView', '4:0')">
+            <span class="five-split-screen-img"></span>
+            <span translate>IDS_CONFERENCE_FOUR_POINT_SCREEN</span>
+        </div>
+        <div class="split-screen-item-container" ng-click="drpengExtend.updateLayoutSettings($event, 'layoutView', '1:7')">
+            <span class="one-seven-screen-img"></span>
+            <span translate>IDS_CONFERENCE_ONE_ADD_SEVEN_SCREEN</span>
+        </div>
+        <div class="split-screen-item-container" ng-click="drpengExtend.updateLayoutSettings($event, 'layoutView', '1:21')">
+            <span class="one-twenty-one-screen-img"></span>
+            <span translate>IDS_CONFERENCE_ONE_ADD_TWENTY_ONE_SCREEN</span>
+        </div>
+        <div class="split-screen-item-container" ng-click="drpengExtend.updateLayoutSettings($event, 'layoutView', '2:21')">
+            <span class="two-twenty-one-screen-img"></span>
+            <span translate>IDS_CONFERENCE_TWO_ADD_TWENTY_ONE_SCREEN</span>
+        </div>
+    </div>
+</div>

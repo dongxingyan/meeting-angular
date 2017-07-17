@@ -1,0 +1,15 @@
+{
+    "name": "Pexip Infinity Connect",
+    "author": "Pexip AS",
+    "main": "desktop-client/main.html",
+    "version": "2.5.0",
+    "window": {
+        "show": false,
+        "icon": "configuration/favicon.png"
+    },
+    "user-agent": "%name/REPLACE_VERSION (%osinfo) nwjs/%nwver Chrome/55.0.2883.87",
+    "chromium-args": "--no-first-run --ignore-certificate-errors --allow-file-access-from-files",
+    "dependencies": {
+        "winston": "^2.2.0"
+    }
+}

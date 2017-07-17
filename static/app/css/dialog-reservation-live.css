@@ -1,0 +1,43 @@
+.reservation-live-form {
+    width: 720px;
+    height: 263px;
+}
+.live-select-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.select-title {
+    display: flex;
+    align-items: center;
+    margin-right: 18px;
+    letter-spacing: 1px;
+}
+.live-select {
+    width: 80%;
+}
+.live-operation-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.live-operation-btn button {
+    padding: 8px 16px;
+    margin-left: 8px;
+    font: inherit;
+    border-radius: 2px;
+    border: none;
+    width: 145px !important;
+    height: 40px !important;
+}
+.start-live {
+    margin-right: 30px;
+}
+.create-live {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    text-decoration: underline;
+    letter-spacing: 1px;
+    color: #212121;
+}
